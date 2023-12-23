@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { logo, lock, hamburgerMenu, close } from "../assets";
-import Login from './Login';
-import SignUp from './SignUp'
 import { useAuth0 } from "@auth0/auth0-react";
+import Login from './Login';
+import SignUp from './SignUp';
 import GetStarted from "./GetStarted";
 
 const Navbar = () => {
@@ -10,6 +10,7 @@ const Navbar = () => {
   const {isAuthenticated} = useAuth0();
 
   const [toggle, setToggle] = useState(false);
+
   const handleClick = () => setToggle(!toggle);
 
   return (
@@ -29,19 +30,6 @@ const Navbar = () => {
         <div className="hidden md:flex">
           <Login/>
           {isAuthenticated ? <GetStarted/>:<SignUp/>}
-          {/*<button
-            className="flex justify-between items-center  bg-transparent  px-6 gap-2"
-            onClick={loginWithRedirect}
-          >
-            <img src={lock} />
-            Login
-          </button>
-          <button
-            className="px-8 py-3 rounded-md bg-[#FFC000] text-white font-bold"
-            onClick={loginWithRedirect}
-          >
-            Sign Up
-          </button> */}
         </div>
 
         <div className="md:hidden" onClick={handleClick}>

@@ -1,4 +1,4 @@
-import { Landing, Profile, Dashboard } from "./pages";
+import { Landing, Profile, Dashboard, NewRoute } from "./pages";
 import { BrowserRouter as Router, Route, Routes} from "react-router-dom";
 import { EntryIdProvider, UserIdProvider, SelectedentryIdProvider, ScriptProvider } from "./components";
 
@@ -13,6 +13,7 @@ const App = () => {
         <Route exact path='/' element={<Landing/>}></Route>
         <Route exact path='/me'element={<Dashboard/>}></Route>
         <Route exact path='/profile' element={<Profile/>}></Route>
+        <Route exact path="/newroute" element={<NewRoute/>}></Route>
       </Routes>
     </Router> 
         </ScriptProvider>

@@ -1,5 +1,5 @@
 import { useAuth0 } from '@auth0/auth0-react';
-import {lock } from "../assets";
+import {lock} from "../assets";
 
 const Login = () =>{
     const {loginWithRedirect}= useAuth0();
