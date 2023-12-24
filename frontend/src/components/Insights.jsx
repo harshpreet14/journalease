@@ -1,16 +1,16 @@
-import { useSelectedentryId } from "./SelectedEntryIdContext";
-import { useState, useEffect, useContext } from "react";
+import { selectedEntryIdState, userIdState } from "../state";
+import { useRecoilValue, useRecoilState } from "recoil";
+import { useState, useEffect } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import axios from "axios";
-import { UserIdContext} from "./UserIdContext";
 const API_BASE = "http://127.0.01:3000/api/journal-ease"
 
 
 const Analysis = () => {
   const[analysis, setAnalysis] = useState("CLICK ON ANY ENTRY TO VIEW ANALYSIS👆");
   const {getAccessTokenSilently} = useAuth0();
-  const {userId} = useContext(UserIdContext);
-  const {selectedentryId, setSelectedentryId} = useSelectedentryId();
+  const userId= useRecoilValue(userIdState)
+  const [selectedentryId, setSelectedentryId] = useRecoilState(selectedEntryIdState);
 
   const getEntry = async (selectedentryId) => {
     console.log('Adding entry...');

@@ -1,22 +1,19 @@
-import { useEntryId } from "./EntryIdContext";
 import Logout from "./Logout";
-import { UserIdContext} from "./UserIdContext";
-import { useSelectedentryId } from "./SelectedEntryIdContext";
 import { useAuth0 } from "@auth0/auth0-react";
+import { userIdState, entryIdState, selectedEntryIdState, scriptState, userAddedState } from "../state";
+import { useRecoilState, useRecoilValue } from "recoil";
 import axios from "axios";
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect} from "react";
 import Audio from "./Audio";
 const API_BASE = "http://127.0.01:3000/api/journal-ease"
-import { useScript } from "./ScriptContext";
 
 const EntryList = () => {
-
-    const { userId } = useContext(UserIdContext);
+    const  userId  = useRecoilValue(userIdState);
     const { getAccessTokenSilently} = useAuth0();
     const [entries, setEntries] = useState([]);
     const [popupActive, setPopupActive] = useState(false);
-    const {newEntry, setNewEntry} = useState("")
-    const {script, setScript} = useScript();
+    const script = useRecoilValue(scriptState)
+    const userAdded = useRecoilValue(userAddedState)
 
     
       const getEntries = async(userId) =>{
@@ -76,8 +73,8 @@ const EntryList = () => {
           }
         };
       
-
-    return (
+    if(userAdded===true){
+      return (
         <>
         <div className='flex flex-row justify-between '>
         <div className='text-xl mb-4 font-bold text-start p-2 shadow-lg'>Your journals ✍️</div>
@@ -105,16 +102,17 @@ const EntryList = () => {
 				</div>
 			) : null }
         </>
-    ); 
-};
+    ) 
+}
+}
 
 
 const Entry = ({entry, entries, setEntries}) => {  
 
-    const {entryId, setEntryId} = useEntryId();
+    const [entryId, setEntryId] = useRecoilState(entryIdState)
     const { getAccessTokenSilently} = useAuth0();
-    const { userId, setUserId } = useContext(UserIdContext);
-    const {selectedentryId, setSelectedentryId} = useSelectedentryId();
+    const userId = useRecoilValue(userIdState);
+    const [selectedentryId, setSelectedentryId] = useRecoilState(selectedEntryIdState);
     
 
     const deleteEntry =async() =>{

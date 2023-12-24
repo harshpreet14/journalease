@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import MicRecorder from "mic-recorder-to-mp3";
 import axios from "axios";
-import { useScript } from "./ScriptContext";
+import { scriptState } from "../state";
+import{useRecoilState} from 'recoil'
 
 //bitRate option is set to 128, which means the audio recorder will use a bit rate of 128 kbps (kilobits per second) when encoding the recorded audio into an MP3 file.
 //Bit rate refers to the number of bits (binary digits) that are processed or transmitted per unit of time. In the context of audio recording, the bit rate determines the quality and size of the recorded audio file.
@@ -9,7 +10,7 @@ import { useScript } from "./ScriptContext";
 const recorder = new MicRecorder({ bitRate: 128 });
 
 const AudioRecording = () => {
-  const { script,setScript } = useScript();
+  const{script, setScript} = useRecoilState(scriptState)
   const [isRecording, setIsRecording] = useState(false);
   const [blobURL, setBlobURL] = useState("");
   const [isBlocked, setIsBlocked] = useState(false);

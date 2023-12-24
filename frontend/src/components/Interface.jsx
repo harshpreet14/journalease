@@ -1,7 +1,8 @@
 import { useAuth0 } from "@auth0/auth0-react";
 import axios from "axios";
-import { useEffect, useContext } from "react";
-import { UserIdContext} from "./UserIdContext"
+import { useEffect } from "react";
+import { userIdState, userAddedState} from "../state";
+import { useRecoilState, useRecoilValue } from "recoil";
 import Transcript from "./Transcript";
 import Analysis from "./Insights";
 import EntryList from "./EntryList";
@@ -11,11 +12,10 @@ const API_BASE = "http://127.0.01:3000/api/journal-ease"
 const Sidebar = () => {
   
   const { isAuthenticated, getAccessTokenSilently, user} = useAuth0();
-
-  const { userId, setUserId } = useContext(UserIdContext);
-
+  const [userAdded, setUserAdded] = useRecoilState(userAddedState)
+  const [userId, setUserId ] = useRecoilState(userIdState);
  
-  const addUser = async (userId) => {
+  const addUser = async () => {
     console.log('user', user);
     console.log('isAuthenticated', isAuthenticated);
     if (user && isAuthenticated) {
@@ -38,11 +38,10 @@ const Sidebar = () => {
         );
         console.log('Response for addUser:', response);
         const user_id =  response.data.data.user._id;
-        setUserId(user_id);
-
-        console.log(userId);
+        setUserId(user_id)
+        setUserAdded(true)
         console.log(user_id);
-
+        console.log(userId)
         } catch (error) {
         console.error('Error:', error);
       }
@@ -51,20 +50,18 @@ const Sidebar = () => {
   
 
   useEffect(() => {
-    console.log("Checking setUserId: " , setUserId );
+    console.log("Checking setUserId: ");
     addUser(userId);
-  }, [userId]);
+  }, []);
 
   return (
     <>
       <div className="flex flex-row gap-5 p-4px bg-[#ffffff]">
         <div className="rounded-tr-3xl  rounded-br-3xl w-4/12  border-2 border-yellow-500 bg-[#ffffff]">
           <div className="flex flex-col m-3 h-5/6 mt-6  mb-10 rounded-tr-3xl rounded-br-3xl p-3 overflow-hidden">
-            <EntryList/>
+           <EntryList/>
           </div>
         </div>
-        <Transcript />
-        <Analysis />
       </div>
     </>
   );
