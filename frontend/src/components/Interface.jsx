@@ -1,17 +1,12 @@
-import { useAuth0 } from "@auth0/auth0-react";
-import axios from "axios";
 import { useEffect } from "react";
-import { userIdState, userAddedState} from "../state";
-import { useRecoilState, useRecoilValue } from "recoil";
-import Transcript from "./Transcript";
-import Analysis from "./Insights";
+import { userIdState} from "../state";
+import { useRecoilValue } from "recoil";
 import EntryList from "./EntryList";
 import TodayCard from "./TodayCard";
 
 
 const Interface = () => {
-  const [userId, setUserId ] = useRecoilState(userIdState);
- 
+  const userId = useRecoilValue(userIdState);
 
   useEffect(() => {
     console.log("Checking setUserId: ");

@@ -1,11 +1,9 @@
-import Logout from "./Logout";
 import { useAuth0 } from "@auth0/auth0-react";
 import { userIdState, entryIdState, selectedEntryIdState, scriptState, userAddedState } from "../state";
 import { useRecoilState, useRecoilValue } from "recoil";
 import axios from "axios";
 import { useState, useEffect} from "react";
-import Audio from "./Audio";
-import {Link, useNavigate} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 
 const API_BASE = "http://127.0.01:3000/api/journal-ease"
 
@@ -13,8 +11,6 @@ const EntryList = () => {
     const  userId  = useRecoilValue(userIdState);
     const { getAccessTokenSilently} = useAuth0();
     const [entries, setEntries] = useState([]);
-    const [popupActive, setPopupActive] = useState(false);
-    const script = useRecoilValue(scriptState)
     const userAdded = useRecoilValue(userAddedState)
 
     
@@ -63,12 +59,6 @@ const Entry = ({entry, entries, setEntries}) => {
     const { getAccessTokenSilently} = useAuth0();
     const userId = useRecoilValue(userIdState);
     const [selectedentryId, setSelectedentryId] = useRecoilState(selectedEntryIdState);
-    
-    //const navigate = useNavigate();
-
-   /*const navigateToEntry = () => {
-    navigate(`/journals/${entry._id}`);
-   };*/
 
     const deleteEntry =async() =>{
         try {
@@ -101,11 +91,6 @@ const Entry = ({entry, entries, setEntries}) => {
         setEntries(entries => entries.filter(entry => entry._id !== entryId))
     }
 
-    const handleDivClick = (e) =>{
-      e.preventDefault();
-      setEntryId(entry._id);
-      setSelectedentryId(entry._id);
-    }
     return (
       <Link to={`/journals/${entry._id}`} >
           <div className="flex flex-col border border-yellow-400 gap-y-3 h-20 rounded-xl  mb-4 px-4 py-2 bg-[#faf3d2] shadow-lg  hover:bg-[#fffffd]" >
