@@ -24,3 +24,8 @@ export const userAddedState = atom({
   key:"userAdded",
   default:false
 })
+
+export const tokenState = atom({
+  key:"token",
+  default:undefined
+})

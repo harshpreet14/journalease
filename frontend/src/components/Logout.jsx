@@ -1,4 +1,3 @@
-
 import { useAuth0 } from "@auth0/auth0-react";
 
 const Logout = () => {
@@ -6,10 +5,10 @@ const Logout = () => {
 
   return (
     <button
-      className="px-4 -py-0.5 rounded-xl bg-[#FFC000] text-white hover:bg-yellow-500 font-bold text-sm"
+      className="px-8 py-3 rounded-md bg-[#FFC000] text-white hover:bg-yellow-500 font-bold "
       onClick={logout}
     >
-      Log out
+      Logout
     </button>
   );
 };

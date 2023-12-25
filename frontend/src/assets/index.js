@@ -7,10 +7,11 @@ import threads from "./threads.jpg";
 import notebook from "./notebook.jpg";
 import ideas from "./ideas.png";
 import scribble from "./scribble.svg";
+import pen from "./pen.svg";
 
 export {
     hamburgerMenu,
     close,
     logo,
     lock, 
-girl, threads, notebook, ideas, scribble};
+girl, threads, notebook, ideas, scribble, pen};

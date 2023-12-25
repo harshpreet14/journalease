@@ -10,7 +10,7 @@ const Transcript = () => {
   const[transcript, setTranscript] = useState("CLICK ON ANY ENTRY TO VIEW IT!👆");
   const {getAccessTokenSilently} = useAuth0();
   const userId = useRecoilValue(userIdState);
-  const [selectedentryId, setSelectedentryId] = useRecoilValue(selectedEntryIdState);
+  const [selectedentryId, setSelectedentryId] = useRecoilState(selectedEntryIdState);
 
   const getEntry = async (selectedentryId) => {
     console.log('Adding entry...');

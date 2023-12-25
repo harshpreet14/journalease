@@ -6,66 +6,38 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import Transcript from "./Transcript";
 import Analysis from "./Insights";
 import EntryList from "./EntryList";
+import TodayCard from "./TodayCard";
 
-const API_BASE = "http://127.0.01:3000/api/journal-ease"
 
-const Sidebar = () => {
-  
-  const { isAuthenticated, getAccessTokenSilently, user} = useAuth0();
-  const [userAdded, setUserAdded] = useRecoilState(userAddedState)
+const Interface = () => {
   const [userId, setUserId ] = useRecoilState(userIdState);
  
-  const addUser = async () => {
-    console.log('user', user);
-    console.log('isAuthenticated', isAuthenticated);
-    if (user && isAuthenticated) {
-      try {
-        const token = await getAccessTokenSilently();
-        console.log('Token:', token);
-        const response = await axios.post(
-          API_BASE + '/users',
-          {
-            auth0_id: user.sub,
-            name: user.name,
-            email: user.email,
-          },
-          {
-            headers: {
-              'Authorization': `Bearer ${token}`,
-              'Content-Type': 'application/json',
-            },
-          }
-        );
-        console.log('Response for addUser:', response);
-        const user_id =  response.data.data.user._id;
-        setUserId(user_id)
-        setUserAdded(true)
-        console.log(user_id);
-        console.log(userId)
-        } catch (error) {
-        console.error('Error:', error);
-      }
-    }
-  };
-  
 
   useEffect(() => {
     console.log("Checking setUserId: ");
-    addUser(userId);
+   
   }, []);
-
-  return (
-    <>
-      <div className="flex flex-row gap-5 p-4px bg-[#ffffff]">
-        <div className="rounded-tr-3xl  rounded-br-3xl w-4/12  border-2 border-yellow-500 bg-[#ffffff]">
-          <div className="flex flex-col m-3 h-5/6 mt-6  mb-10 rounded-tr-3xl rounded-br-3xl p-3 overflow-hidden">
-           <EntryList/>
+ 
+  if(userId){
+    return (
+      <>
+        <div className="flex flex-row gap-5 h-full p-4px bg-[#ffffff]">
+          <h1 className="w-4/12">
+            <TodayCard/>
+          </h1>
+          <div className="rounded-tl-3xl  h-full rounded-bl-3xl w-8/12  border-2 border-yellow-500 bg-[#ffffff]">
+            <div className="flex flex-col m-3 h-full mt-6  mb-10 rounded-tr-3xl rounded-br-3xl p-3 overflow-hidden">
+            <EntryList/>
+            </div>
+            
           </div>
+          
         </div>
-      </div>
-    </>
-  );
+      </>
+    );
+  }
+  
 } 
 
 
-export default Sidebar;
+export default Interface;

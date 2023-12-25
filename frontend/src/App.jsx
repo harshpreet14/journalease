@@ -1,4 +1,5 @@
 import { Landing, Profile, Dashboard } from "./pages";
+import { Journal } from "./components";
 import { BrowserRouter as Router, Route, Routes} from "react-router-dom";
 import { RecoilRoot } from "recoil";
 
@@ -7,9 +8,11 @@ const App = () => {
     <RecoilRoot>
       <Router>
       <Routes>
-        <Route exact path='/' element={<Landing/>}></Route>
-        <Route exact path='/me'element={<Dashboard/>}></Route>
-        <Route exact path='/profile' element={<Profile/>}></Route>
+        <Route exact path='/' element={<Landing/>}/>
+        <Route exact path='/journals' element={<Dashboard/>}/>
+         <Route exact path="/journals/:id" element={<Journal/>}/>
+        <Route exact path='/profile' element={<Profile/>}/>
+        <Route exact path='/journals/new' element={<h1>New journal</h1>}/>
       </Routes>
      </Router>   
     </RecoilRoot>
