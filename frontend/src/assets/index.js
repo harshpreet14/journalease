@@ -3,10 +3,6 @@ import close from "./close.svg";
 import logo from "./logo.png";
 import lock from "./lock.svg";
 import girl from "./girl.jpg";
-import threads from "./threads.jpg";
-import notebook from "./notebook.jpg";
-import ideas from "./ideas.png";
-import scribble from "./scribble.svg";
 import pen from "./pen.svg";
 
 export {
@@ -14,4 +10,4 @@ export {
     close,
     logo,
     lock, 
-girl, threads, notebook, ideas, scribble, pen};
+girl, pen};
