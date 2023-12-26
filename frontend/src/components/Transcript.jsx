@@ -3,7 +3,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import axios from "axios";
 import { selectedEntryIdState, userIdState } from "../state";
 import { useRecoilState, useRecoilValue } from "recoil";
-const API_BASE = "http://127.0.01:3000/api/journal-ease"
+const API_BASE = "https://journalling-backend-eedb-harshpreets-projects.vercel.app/"
 
 
 const Transcript = () => {

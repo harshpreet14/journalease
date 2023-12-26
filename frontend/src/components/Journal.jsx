@@ -7,7 +7,7 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import LoadingScreen from "./LoadingSreen";
 import Header from "./Header";
 
-const API_BASE = "http://127.0.01:3000/api/journal-ease";
+const API_BASE = "https://journalling-backend-eedb-harshpreets-projects.vercel.app/";
 
 
 export const journalStructure = {

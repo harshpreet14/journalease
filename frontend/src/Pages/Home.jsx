@@ -7,7 +7,8 @@ import { userAddedState } from "../state";
 import axios from 'axios'
 import { useEffect } from "react";
 
-const API_BASE = "http://127.0.01:3000/api/journal-ease"
+const API_BASE = "https://journalling-backend-eedb-harshpreets-projects.vercel.app/"
+
 const Home = ()=>{
 
   const { isAuthenticated, getAccessTokenSilently, user} = useAuth0();

@@ -14,7 +14,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     cacheLocation="localstorage"
     authorizationParams={{
       redirect_uri: window.location.origin,
-      audience:"http://localhost:3000/journal-api/v1/users/me/entries",
+      audience:"https://journalling-backend-eedb-harshpreets-projects.vercel.app/v1/users/me/entries",
       useRefreshTokens: true,
     }}
     scope="openid profile email"

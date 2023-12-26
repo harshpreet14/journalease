@@ -6,7 +6,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { userIdState } from "../state";
 import { useRecoilValue } from "recoil";
 
-const API_BASE = "http://127.0.01:3000/api/journal-ease"
+const API_BASE = "https://journalling-backend-eedb-harshpreets-projects.vercel.app/"
 
 const NewEntry = () =>{
   const[popupActive, setPopupActive] = useState(false)
