@@ -14,7 +14,6 @@ const jwtCheck = auth({
     tokenSigningAlg: process.env.ALGO
 });
 
-
 app.use(cors());
 
 app.use(express.json());

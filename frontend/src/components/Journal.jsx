@@ -5,8 +5,9 @@ import { selectedEntryIdState, userIdState, tokenState} from "../state";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import LoadingScreen from "./LoadingSreen";
-import { lock } from "../assets";
-const API_BASE = "http://127.0.01:3000/api/journal-ease"
+import Header from "./Header";
+
+const API_BASE = "http://127.0.01:3000/api/journal-ease";
 
 
 export const journalStructure = {
@@ -21,12 +22,11 @@ const Journal = ()=>{
     const [loading, setLoading] = useState(true);
     const token = useRecoilValue(tokenState)
     let {transcript, updated_at} = journal;
-
-    const {getAccessTokenSilently} = useAuth0();
     const userId = useRecoilValue(userIdState);
 
     const getEntry = async () => {
           try {
+            //const token = await getAccessTokenSilently
             const response = await axios.get(
               API_BASE + '/users/'+ userId + '/entries/' + id,
               {
@@ -41,10 +41,33 @@ const Journal = ()=>{
             setJournal(obtained_journal);
             setLoading(false)
             } catch (error) {
-            console.error('Error:', error);
+            console.log('Error:', error);
           }
       };
-    
+      
+
+      const deleteEntry =async() =>{
+        try {
+            const response = await axios.delete(
+              API_BASE + '/users/'+ userId + '/entries/' + id,
+              {
+                headers: {
+                  'Authorization': `Bearer ${token}`,
+                  'Content-Type': 'application/json',
+                },
+              }
+            );
+            console.log('Response:', response);
+            } catch (error) {
+            console.log('Error:', error);
+          }
+      }
+
+      const handleDeleteEntry =(e)=>{
+        e.preventDefault();
+        deleteEntry();
+      }
+
       useEffect(() => {
         getEntry();
       }, []);
@@ -52,31 +75,29 @@ const Journal = ()=>{
       return (
         loading ? <LoadingScreen /> 
         : 
-        <div className="max-w-[900px] center py-10 maax-lg:px-[5vw]">Hi
-            <div className="mt-12">
-                <h2 className="font-serif">Your journal</h2>
-                <div className="flex max-sm:flex-col justify-between my-8">
-
-                    <div className="flex gap-5 items-start">
-                        <img src={lock} className="w-12 h-12 rounded-full" />
-                        <p className="capitalize">your name
-                            <br/>
-                        </p>
-                    </div>
-
-                <p className="text-dark-grey opacity-70 max-sm:mt-6 max-sm:ml-12 max-sm:pl-5">{new Date(updated_at).toLocaleString('en-IN', {
+        <>
+        <Header/>
+        <div className="flex items-center justify-center h-full" >
+                <div className="rounded-3xl w-6/12 align-center border-2 m-5 bg-[#ffffff]">
+                  <div className="flex flex-row justify-between p-2">
+                  <p className="text-dark-grey opacity-70 p-5 max-sm:mt-6 max-sm:ml-12 max-sm:pl-5">{new Date(updated_at).toLocaleString('en-IN', {
                         timeZone: 'Asia/Kolkata',
                         year: 'numeric',
                         month: 'short',
                         day: 'numeric',
                         hour: '2-digit',
                         minute: '2-digit',
-                })}</p>
-                </div>
+                })}</p> 
+                <button className="mr-5 hover:font-bold" onClick={handleDeleteEntry}>Delete</button>
+                  </div>
+                  <div className="flex flex-col m-3 h-5/6 mt-6 mb-10 rounded-3xl  p-5 overflow-hidden">
+                  <div className="text-sm border h-full border-yellow-700 p-5 mb-2 rounded-xl shadow-xl  hover:bg-[#fffacf] overflow-y-auto scrollbar-thin scrollbar-thumb-yellow-200 scrollbar-track-transparent">
+                {transcript }
+              </div>
+              </div>
             </div>
-
-
-        </div>
+            </div>   
+            </>
       );
 }
 

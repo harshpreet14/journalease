@@ -1,5 +1,5 @@
 import Landing from './Landing';
 import Profile from './Profile';
-import Dashboard from './Dashboard';
+import Home from './Home';
 
-export {Landing, Profile, Dashboard}
+export {Landing, Profile, Home}

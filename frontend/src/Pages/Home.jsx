@@ -1,20 +1,19 @@
 import Interface from "../components/Interface";
-import LoadingScreen from "../components/LoadingSreen";
 import { Header } from "../components";
-import { userIdState, tokenState } from "../state";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { userIdState, tokenState} from "../state";
+import { useRecoilState} from "recoil";
 import { useAuth0 } from "@auth0/auth0-react";
 import { userAddedState } from "../state";
 import axios from 'axios'
 import { useEffect } from "react";
 
 const API_BASE = "http://127.0.01:3000/api/journal-ease"
-const Dashboard = ()=>{
+const Home = ()=>{
 
   const { isAuthenticated, getAccessTokenSilently, user} = useAuth0();
   const [userAdded, setUserAdded] = useRecoilState(userAddedState)
   const [userId, setUserId ] = useRecoilState(userIdState);
-  const [token, setToken] = useRecoilState(tokenState)
+  const [token, setTokenState] = useRecoilState(tokenState)
 
   const addUser = async () => {
     console.log('user', user);
@@ -22,7 +21,7 @@ const Dashboard = ()=>{
     if (user && isAuthenticated) {
       try {
         const token = await getAccessTokenSilently();
-        setToken(token)
+        setTokenState(token)
         console.log('Token:', token);
         const response = await axios.post(
           API_BASE + '/users',
@@ -66,4 +65,4 @@ const Dashboard = ()=>{
     )
 }
 
-export default Dashboard
+export default Home;

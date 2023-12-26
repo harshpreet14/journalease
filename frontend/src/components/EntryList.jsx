@@ -60,25 +60,6 @@ const Entry = ({entry, entries, setEntries}) => {
     const userId = useRecoilValue(userIdState);
     const [selectedentryId, setSelectedentryId] = useRecoilState(selectedEntryIdState);
 
-    const deleteEntry =async() =>{
-        try {
-            const token = await getAccessTokenSilently();
-            console.log('Token:', token);
-            const response = await axios.delete(
-              API_BASE + '/users/'+ userId + '/entries/' + entryId,
-              {
-                headers: {
-                  'Authorization': `Bearer ${token}`,
-                  'Content-Type': 'application/json',
-                },
-              }
-            );
-            console.log('Response:', response);
-            } catch (error) {
-            console.error('Error:', error);
-          }
-      }
-
       
     const updateEntry = async() =>{
         console.log("hi")
